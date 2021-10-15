@@ -23,8 +23,29 @@
 
 #include "config.h"
 
+#include <deque>
 #include <cinttypes>
 #include <string>
+#include <string_view>
+
+#include "std_filesystem.h"
+
+/*
+ *  Returns a deque common paths plus subdirectory, all existing, in order:
+ *   - Executable path/<subdir> <- front of the deque
+ *   - /usr/share/dosbox/<subdir>
+ *   - /usr/local/share/dosbox/<subdir>
+ *   - User 'config' path/<subdir>
+ *   - Current-working-directory/<subdir> <- back of the deque
+ *
+ *  Note that /usr/share* paths possibly exists on macOS, POSIX, and
+ *  even MSYS2, Cygwin, and WSL: so we use this on all platforms.
+ *
+ *  The order goes from bundled, to OS repo-provided, to user-configured.
+ *  That is: from general to specific.
+ */
+
+std::deque<std_fs::path> common_paths(const std::string_view subdirectory_name);
 
 /* Check if the given path corresponds to an existing file or directory.
  */

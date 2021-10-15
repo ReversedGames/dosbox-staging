@@ -2697,12 +2697,14 @@ static void GUI_StartUp(Section *sec)
 			                              glMapBufferARB &&
 			                              glUnmapBufferARB;
 
-			sdl.opengl.pixel_buffer_object = have_arb_buffers &&
+			sdl.opengl.pixel_buffer_object =
+			        have_arb_buffers &&
 			        SDL_GL_ExtensionSupported("GL_ARB_pixel_buffer_object");
 
 			LOG_INFO("OPENGL: Vendor: %s", glGetString(GL_VENDOR));
 			LOG_INFO("OPENGL: Version: %s", glGetString(GL_VERSION));
-			LOG_INFO("OPENGL: GLSL version: %s", glGetString(GL_SHADING_LANGUAGE_VERSION));
+			LOG_INFO("OPENGL: GLSL version: %s",
+			         glGetString(GL_SHADING_LANGUAGE_VERSION));
 			LOG_INFO("OPENGL: Pixel buffer object: %s",
 			         sdl.opengl.pixel_buffer_object ? "available"
 			                                        : "missing");

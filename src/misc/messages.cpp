@@ -177,26 +177,6 @@ static std::deque<std::string> get_language(const Section_prop *section)
 	return langs;
 }
 
-static std::deque<std_fs::path> get_paths()
-{
-	std::deque<std_fs::path> paths = {};
-
-	const auto exe_path = control->cmdline->GetExecutablePath();
-#if defined(MACOSX)
-	paths.emplace_back(exe_path / "../Resources/translations");
-#else
-	paths.emplace_back(exe_path / "translations");
-#endif
-
-	const std_fs::path config_path(CROSS_GetPlatformConfigDir());
-	paths.emplace_back(config_path / "translations");
-
-	// Possibly exists on macOS, POSIX, and even MSYS2 or Cygwin (Windows)
-	paths.emplace_back("/usr/share/dosbox/translations");
-
-	return paths;
-}
-
 // MSG_Init loads the requested language provided on the command line or
 // from the language = conf setting.
 
@@ -221,7 +201,7 @@ void MSG_Init(Section_prop *section)
 		const auto lang = l + (ends_with(l, ".lng") ? "" : ".lng");
 
 		// Otherwise let's try prefixes the paths
-		for (const auto &p : get_paths()) {
+		for (const auto &p : common_paths("translations")) {
 			const auto lang_path = p / lang;
 			if (LoadMessageFile(lang_path)) {
 				return;

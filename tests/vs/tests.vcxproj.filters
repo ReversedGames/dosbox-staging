@@ -51,6 +51,9 @@
     <ClCompile Include="..\..\src\misc\rwqueue.cpp">
       <Filter>dosbox_sources</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\misc\fs_utils.cpp">
+      <Filter>dosbox_sources</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\src\misc\fs_utils_win32.cpp">
       <Filter>dosbox_sources</Filter>
     </ClCompile>
